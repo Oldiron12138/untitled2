@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:untitled2/AccountScreen.dart';
 import 'package:untitled2/CircleScreen.dart';
 import 'package:untitled2/Infos.dart';
@@ -17,6 +18,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
 
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     list
       ..add(MoviesScreen())
       ..add(Infos())

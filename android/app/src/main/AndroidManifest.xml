@@ -4,6 +4,7 @@
    <application
         android:label="untitled2"
         android:name="${applicationName}"
+       android:theme="@style/LaunchTheme"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
