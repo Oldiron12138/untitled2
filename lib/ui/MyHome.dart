@@ -75,7 +75,7 @@ class _MyHomeState extends State<MyHome> {
                 child: LinearProgressIndicator(
                 backgroundColor: Colors.greenAccent,
                 value:dura,
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
               )
                 ,visible: visbale,),
 
@@ -100,7 +100,7 @@ class _MyHomeState extends State<MyHome> {
                     IconButton(onPressed: () {
                       _controller.value.isPlaying   //设置播放状态
                           ? _controller.pause()
-                          : _controller.play(); },icon: Icon(chooseIcon(),color: Colors.red,)),
+                          : _controller.play(); },icon: Icon(chooseIcon(),color: Colors.black,)),
                     IconButton(onPressed: () {  },icon:const Icon(Icons.skip_next)),
                   ],
                 ),

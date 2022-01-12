@@ -13,15 +13,7 @@ class InfoDataEntityEntity {
 	String? price;
 	String? url;
 
-  InfoDataEntityEntity(String? title, String? city, String? desc,String? street, String? phone, String? price, String? url) {
-    this.title = title;
-    this.city = city;
-    this.desc = desc;
-    this.street = street;
-    this.phone = phone;
-    this.price = price;
-    this.url = url;
-  }
+  InfoDataEntityEntity();
 
 
   factory InfoDataEntityEntity.fromJson(Map<String, dynamic> json) => $InfoDataEntityEntityFromJson(json);

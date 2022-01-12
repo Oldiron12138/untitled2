@@ -2,7 +2,7 @@ import 'package:untitled2/generated/json/base/json_convert_content.dart';
 import 'package:untitled2/data/result_data_entity.dart';
 
 ResultDataEntity $ResultDataEntityFromJson(Map<String, dynamic> json) {
-	final ResultDataEntity resultDataEntity = ResultDataEntity("111","111","111");
+	final ResultDataEntity resultDataEntity = ResultDataEntity();
 	final String? num = jsonConvert.convert<String>(json['num']);
 	if (num != null) {
 		resultDataEntity.num = num;

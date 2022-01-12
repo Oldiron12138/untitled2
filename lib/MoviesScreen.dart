@@ -8,7 +8,7 @@ import 'package:untitled2/ui/MyHome.dart';
 import 'api/MyplayerServices.dart';
 import 'data/result_data_entity.dart';
 List<ResultDataEntity>? newData = null;
-ResultDataEntity? defaultData = ResultDataEntity("Movie" , "aaa" , "aaa");
+ResultDataEntity? defaultData = ResultDataEntity();
 class MoviesScreen extends StatefulWidget {
   var httpClient = new HttpClient();
 
@@ -93,7 +93,7 @@ class MoviesScreenState extends State<MoviesScreen> {
         title: Text('Movies'),
       ),
     body: Center(
-      child: ListView.builder(
+      child: GridView.builder(
         // 有分割线
         itemBuilder: (context, item) {
           return Container(
@@ -107,7 +107,13 @@ class MoviesScreenState extends State<MoviesScreen> {
           );
         },
 
-        itemCount: newData?.length,    // 数据长度
+        itemCount: newData?.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5,
+            childAspectRatio: 0.75
+        ),// 数据长度
       ),
     ),
     );

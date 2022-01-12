@@ -10,11 +10,7 @@ class ResultDataEntity {
 	String? video;
 
   //ResultDataEntity();
-  ResultDataEntity(String? num, String? url, String? video) {
-    this.num = num;
-    this.url = url;
-    this.video = video;
-  }
+  ResultDataEntity();
 
   factory ResultDataEntity.fromJson(Map<String, dynamic> json) => $ResultDataEntityFromJson(json);
 

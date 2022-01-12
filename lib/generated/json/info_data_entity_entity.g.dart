@@ -2,7 +2,7 @@ import 'package:untitled2/generated/json/base/json_convert_content.dart';
 import 'package:untitled2/data/info_data_entity_entity.dart';
 
 InfoDataEntityEntity $InfoDataEntityEntityFromJson(Map<String, dynamic> json) {
-	final InfoDataEntityEntity infoDataEntityEntity = InfoDataEntityEntity("111","111","111","111","111","111","111");
+	final InfoDataEntityEntity infoDataEntityEntity = InfoDataEntityEntity();
 	final String? title = jsonConvert.convert<String>(json['title']);
 	if (title != null) {
 		infoDataEntityEntity.title = title;

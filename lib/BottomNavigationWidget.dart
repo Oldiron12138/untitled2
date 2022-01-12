@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:untitled2/AccountScreen.dart';
+import 'package:untitled2/Capture.dart';
 import 'package:untitled2/CircleScreen.dart';
 import 'package:untitled2/Infos.dart';
 import 'package:untitled2/MoviesScreen.dart';
+import 'package:untitled2/ui/AccountScreen.dart';
+import 'package:untitled2/ui/LoginScreen.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   @override
@@ -22,7 +24,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     list
       ..add(MoviesScreen())
       ..add(Infos())
-      ..add(CircleScreen())
+      ..add(Capture())
       ..add(AccountScreen());
     super.initState();
   }
