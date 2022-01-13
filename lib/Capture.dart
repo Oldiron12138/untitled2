@@ -68,7 +68,7 @@ class CapturesState extends State<Capture> {
   Container textFieldContainer() {
     return Container(
       height: 350,
-        width: 300,
+        width: 391,
         child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
                 child: Column(
@@ -151,7 +151,7 @@ class CapturesState extends State<Capture> {
   Widget renderFloatingActionBar() {
     return ButtonBar(
       //设置对齐方式
-      alignment: MainAxisAlignment.spaceEvenly,
+      alignment: MainAxisAlignment.end,
       children: <Widget>[
         //第一个浮动按钮
         FloatingActionButton(
@@ -159,6 +159,7 @@ class CapturesState extends State<Capture> {
             choosePic(ImageSource.camera);
           },
           tooltip: 'photo_camera',
+          backgroundColor: Colors.red,
           child: Icon(Icons.photo_camera), //相机拍照
         ),
         //第二个浮动按钮
@@ -167,12 +168,14 @@ class CapturesState extends State<Capture> {
             choosePic(ImageSource.camera);
           },
           tooltip: '发布',
-          child: Icon(Icons.add), //相机拍照
+          backgroundColor: Colors.green,
+          child: Icon(Icons.upload), //相机拍照
         ),
         FloatingActionButton(
           onPressed: () {
             choosePic(ImageSource.gallery);
           },
+          backgroundColor: Colors.yellow,
           tooltip: 'photo_libarary',
           child: Icon(Icons.photo_library), //选择相册照片
         )

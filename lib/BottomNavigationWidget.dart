@@ -6,6 +6,8 @@ import 'package:untitled2/Infos.dart';
 import 'package:untitled2/MoviesScreen.dart';
 import 'package:untitled2/ui/AccountScreen.dart';
 import 'package:untitled2/ui/LoginScreen.dart';
+import 'package:untitled2/utils/Global.dart';
+import 'package:untitled2/utils/SharePerfManager.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   @override
@@ -17,15 +19,45 @@ class BottomNavigationWidget extends StatefulWidget {
 class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   int _currentIndex = 0;
   List<Widget> list = [];
+  var aleadyLogin;
+
+  _getLoginStatus(){
+    var s=SharePerfManager.getSharePref("Account_Num");
+    s.then((value){
+      aleadyLogin = value;
+      setState(() {
+        if (aleadyLogin != null){
+          print("zwj Bottom navi $aleadyLogin");
+          Global.userName = value;
+          Global.isLoged = true;
+          list[3] = AccountScreen();
+          _getLoginPwd();
+        }
+      });
+
+    });
+  }
+
+  _getLoginPwd(){
+    var s=SharePerfManager.getSharePref("Account_Pwd");
+    s.then((value){
+      Global.userPwd = value;
+      print("zwj Bottom navi ${Global.userPwd}");
+    });
+  }
 
   @override
   void initState() {
+    print("zwjBottom initstate ${Global.screenWidth}");
+    _getLoginStatus();
+    //print("zwj Bottom navi $aleadyLogin");
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     list
       ..add(MoviesScreen())
       ..add(Infos())
-      ..add(Capture())
-      ..add(AccountScreen());
+      ..add(Infos())
+      ..add((aleadyLogin != null)? AccountScreen() : LoginScreen());
+          //AccountScreen());
     super.initState();
   }
 

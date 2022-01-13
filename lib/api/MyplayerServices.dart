@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:untitled2/data/buy_response_entity.dart';
 
 import 'dart:collection';
 
@@ -35,6 +36,12 @@ class MyplayerServices {
     print("zwjname $name");
     print("zwjpwd $pwd");
     return await userInfo(_baseUrl+url, name,pwd, new Options(method:"GET"));
+  }
+
+  static buyContent(url,name,pwd,coin,id) async{
+    print("zwjname $name");
+    print("zwjpwd $pwd");
+    return await buy(_baseUrl+url, name,pwd,coin,id ,new Options(method:"GET"));
   }
 
   static getInfo(url,param) async{
@@ -201,6 +208,60 @@ class MyplayerServices {
       }
       if (response.statusCode == 200 || response.statusCode == 201) {
         AccountInfoEntityEntity cardbeanList = AccountInfoEntityEntity.fromJson(json.decode(response.data));
+        print("zwj1010");
+        return cardbeanList;
+      }
+    } catch (e) {
+      print(e.toString() + url);
+    }
+  }
+
+  static buy(url, name, pwd, coin, id,Options option) async {
+    option.responseType = ResponseType.plain;
+
+    ///超时
+    Dio dio = new Dio();
+    // 添加拦截器
+    Response response;
+    Map<String,dynamic> map = Map();
+    map["name"]= name;
+    map["pwd"] = pwd;
+    map["coin"] = coin;
+    map["id"] = id;
+
+
+    try {
+      response = await dio.get(url,queryParameters: map);
+      print("zwjresName ${map["name"]}");
+      print("zwjresPwd ${map["pwd"]}");
+      print("zwj666 ${response.toString()}");
+    } on DioError catch (e) {
+      // 请求错误处理
+      Response errorResponse;
+      if (e.response != null) {
+        errorResponse = e.response;
+      } else {
+        errorResponse = new Response(statusCode: 666);
+      }
+      if (e.type == DioErrorType.CONNECT_TIMEOUT) {
+        errorResponse.statusCode = Code.NETWORK_TIMEOUT;
+      }
+      if (Config.DEBUG) {
+        print('请求异常: ' + e.toString());
+        print('请求异常 url: ' + url);
+      }
+      return "error";
+    }
+
+    try {
+      if (option.contentType != null) {
+        print("zwj111");
+        //return new ResultDataEntity();
+      } else {
+        var responseJson = response.data;
+      }
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        BuyResponseEntity cardbeanList = BuyResponseEntity.fromJson(json.decode(response.data));
         print("zwj1010");
         return cardbeanList;
       }

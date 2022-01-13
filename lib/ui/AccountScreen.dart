@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:untitled2/api/MyplayerServices.dart';
 import 'package:untitled2/data/account_info_entity_entity.dart';
+import 'package:untitled2/utils/Global.dart';
 
 AccountInfoEntityEntity? newData = null;
 class AccountScreen extends StatefulWidget {
@@ -26,10 +27,14 @@ class AccountScreenState extends State<AccountScreen> {
 
 
   void getData() async {
+    var name = Global.userName;
+    var pwd = Global.userPwd;
+    print("zzwwjj $name");
+    print("zzwwjj $pwd");
     print("zwj 开始请求数据");
     AccountInfoEntityEntity rrr =
     await MyplayerServices.getAccount(
-        "/QQQ/servlet/Searchall", "15940850830","111111");
+        "/QQQ/servlet/Searchall", name,pwd);
 
 
     setState(() {

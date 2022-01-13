@@ -3,8 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shake_animation_widget/shake_animation_widget.dart';
+import 'package:untitled2/BottomNavigationWidget.dart';
 import 'package:untitled2/api/MyplayerServices.dart';
 import 'package:untitled2/data/account_info_entity_entity.dart';
+import 'package:untitled2/ui/AccountScreen.dart';
+import 'package:untitled2/utils/Global.dart';
+import 'package:untitled2/utils/SharePerfManager.dart';
 
 AccountInfoEntityEntity? newData = null;
 class LoginScreen extends StatefulWidget {
@@ -216,12 +220,22 @@ class LoginScreenState extends State<LoginScreen> {
     await MyplayerServices.getAccount(
         "/QQQ/servlet/Searchall", _userNameController.text, _passwordController.text);
 
-
     // setState(() {
     //   newData = rrr as AccountInfoEntityEntity?;
     // });
+    if (rrr.num != null) {
+      SharePerfManager.saveSharePref("Account_Num",rrr.num);
+      Global.mCoin = rrr.coin;
+      Global.mId = rrr.id;
+      print("zwj password ${_passwordController.text}");
+      SharePerfManager.saveSharePref("Account_Pwd",_passwordController.text.toString());
+      SharePerfManager.saveSharePref<bool>("Already_Login",true);
+      Navigator.of(context).pushAndRemoveUntil(
+          new MaterialPageRoute(builder: (context) => new BottomNavigationWidget()
+          ), (route) => route == null);
+    }
 
-    print("zwj 登录成功");
+    print("zwj 登录成功 ${rrr.num}");
   }
 
   void checkLoginFunction() {

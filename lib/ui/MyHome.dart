@@ -23,6 +23,7 @@ class _MyHomeState extends State<MyHome> {
         widget.url
     )..initialize().then((a){
       setState(() {
+        _controller.play();
 
       });
     });
@@ -73,9 +74,9 @@ class _MyHomeState extends State<MyHome> {
 
               Visibility(
                 child: LinearProgressIndicator(
-                backgroundColor: Colors.greenAccent,
+                backgroundColor: Colors.black,
                 value:dura,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
               )
                 ,visible: visbale,),
 
@@ -96,12 +97,12 @@ class _MyHomeState extends State<MyHome> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    IconButton(onPressed: () {  },icon:const Icon(Icons.skip_previous)),
+                    IconButton(onPressed: () {  },icon:const Icon(Icons.skip_previous),color: Colors.red),
                     IconButton(onPressed: () {
                       _controller.value.isPlaying   //设置播放状态
                           ? _controller.pause()
-                          : _controller.play(); },icon: Icon(chooseIcon(),color: Colors.black,)),
-                    IconButton(onPressed: () {  },icon:const Icon(Icons.skip_next)),
+                          : _controller.play(); },icon: Icon(chooseIcon(),color: Colors.red,)),
+                    IconButton(onPressed: () {  },icon:const Icon(Icons.skip_next),color: Colors.red),
                   ],
                 ),
                   visible: visbale,
