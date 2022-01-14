@@ -9,12 +9,14 @@ import 'package:untitled2/ui/AccountScreen.dart';
 import 'package:untitled2/ui/LoginScreen.dart';
 import 'package:untitled2/ui/MyHome.dart';
 import 'package:untitled2/utils/Global.dart';
+import 'package:untitled2/utils/SharePerfManager.dart';
 
 import 'api/MyplayerServices.dart';
 import 'data/result_data_entity.dart';
 List<ResultDataEntity>? newData = null;
 BuyResponseEntity? newData1 = null;
 var focusUrl;
+var focusNum;
 ResultDataEntity? defaultData = ResultDataEntity();
 class MoviesScreen extends StatefulWidget {
   var httpClient = new HttpClient();
@@ -38,23 +40,36 @@ class MoviesScreenState extends State<MoviesScreen> {
     getData();
   }
 
-   _playVideo (String? mUrl) {
-      setState(() {
-        if (!Global.isLoged) {
-          showCupertinoAlertDialog("请先登录。", "宁还没有登录", "登录");
-        } else {
-          showCupertinoAlertDialog("内容未解锁","花费一枚金币解锁此内容?","解锁");
-          focusUrl = mUrl;
-
-          // Navigator.push(
-          //     context,
-          //     new MaterialPageRoute(builder: (context) => new MyHome(url: mUrl!))
-          // );
-        }
-        //Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHome()));
-
-      });
+  _playVideo(String? mNum, String? mUrl) {
+    focusNum = mNum;
+    print("zwj _playVideo");
+    setState(() {
+      if (!Global.isLoged) {
+        print("zwj _playVideo1");
+        showCupertinoAlertDialog("请先登录。", "宁还没有登录", "登录");
+      } else if (Global.mUnlockMovie != null) {
+        print("zwj _playVideo2");
+        Global.mUnlockMovie?.forEach((element) {
+          print("zwj _playVideo2$element");
+          if (element == focusNum) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyHome(url: mUrl!)));
+            return;
+          }else{
+            showCupertinoAlertDialog("内容未解锁", "花费一枚金币解锁此内容?", "解锁");
+            focusUrl = mUrl;
+          }
+        });
+      } else {
+        print("zwj _playVideo3");
+        showCupertinoAlertDialog("内容未解锁", "花费一枚金币解锁此内容?", "解锁");
+        focusUrl = mUrl;
+        focusNum = mNum;
+      }
+      //Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHome()));
+    });
   }
+
   void showCupertinoAlertDialog(String title, String content, String confirm) {
     showDialog(
         context: context,
@@ -107,8 +122,16 @@ class MoviesScreenState extends State<MoviesScreen> {
       BuyResponseEntity rrr =
       await MyplayerServices.buyContent(
           "/QQQ/servlet/UpdateServlet", Global.userName,Global.userPwd,Global.mCoin,Global.mId);
-
-
+      if (Global.mUnlockMovie == null) {
+        List<String> list = <String>[];
+        list.add(focusNum);
+        Global.mUnlockMovie = list;
+        SharePerfManager.saveSharePrefList("Unlocked_M", list);
+      } else {
+        Global.mUnlockMovie.add(focusNum);
+        print("zwjcachesize ${Global.mUnlockMovie.length}");
+        SharePerfManager.saveSharePrefList("Unlocked_M", Global.mUnlockMovie);
+      }
       setState(() {
         if(rrr!.resultData!) {
           Navigator.push(
@@ -241,7 +264,7 @@ class MoviesScreenState extends State<MoviesScreen> {
             ),
 
             child: Center(
-              child: IconButton(onPressed:() {_playVideo(newData?.video);}, icon:Icon(Icons.play_arrow),alignment: Alignment.center,
+              child: IconButton(onPressed:() {_playVideo(newData?.num,newData?.video);}, icon:Icon(Icons.play_arrow),alignment: Alignment.center,
                 iconSize: 60,
                 color: Colors.white,),
             ),

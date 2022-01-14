@@ -38,6 +38,9 @@ dependencies:
   image_picker: ^0.6.0+10
   shake_animation_widget: ^1.0.0
   shared_preferences: ^0.5.3+4
+  sqflite: ^1.2.0
+  path: ^1.6.4
+
 
 dev_dependencies:
   flutter_test:

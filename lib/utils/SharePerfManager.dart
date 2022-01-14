@@ -20,7 +20,30 @@ class SharePerfManager{
         bool va = value as bool;
         prefs.setBool(key, va);
         break;
+      case int:
+        int va = value as int;
+        prefs.setInt(key, va);
+        break;
     }
+  }
+
+  static saveSharePrefList(String key, List<String> value) async {
+    print("zwj save string111 ${value.runtimeType}");
+    // SharedPreferences.setMockInitialValues({});
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(key, value);
+  }
+
+  static Future<List<String>> getSharePrefList(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userName = await prefs.getStringList(key);
+    return userName;
+  }
+
+  static Future<int> getSharePrefCoin(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userName = await prefs.getInt(key);
+    return userName;
   }
 
   static Future<String> getSharePref(String key) async {

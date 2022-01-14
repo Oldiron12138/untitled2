@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
+import 'package:untitled2/utils/SharePerfManager.dart';
 
 class Global {
   static Global instance = Global();
@@ -15,5 +16,7 @@ class Global {
   static String? userPwd;
   static int? mCoin;
   static int? mId;
+  static List<String> mUnlockMovie = <String>[];
+  static List<String> mUnlockInfos = <String>[];
 
 }

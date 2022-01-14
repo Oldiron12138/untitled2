@@ -6,6 +6,8 @@ import 'package:untitled2/Infos.dart';
 import 'package:untitled2/MoviesScreen.dart';
 import 'package:untitled2/ui/AccountScreen.dart';
 import 'package:untitled2/ui/LoginScreen.dart';
+import 'package:untitled2/ui/RegisterScreen.dart';
+import 'package:untitled2/ui/SplashScreen.dart';
 import 'package:untitled2/utils/Global.dart';
 import 'package:untitled2/utils/SharePerfManager.dart';
 
@@ -46,10 +48,27 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     });
   }
 
+  _getMoviesCache(){
+    var s=SharePerfManager.getSharePrefList("Unlocked_M");
+    s.then((value){
+      Global.mUnlockMovie = value;
+      print("zwjmovieccccc ${value.length}");
+    });
+  }
+
+  _getCoinCache(){
+    var s=SharePerfManager.getSharePrefCoin("Account_Coin");
+    s.then((value){
+      Global.mCoin = value;
+    });
+  }
+
   @override
   void initState() {
     print("zwjBottom initstate ${Global.screenWidth}");
     _getLoginStatus();
+    _getMoviesCache();
+    _getCoinCache();
     //print("zwj Bottom navi $aleadyLogin");
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     list
